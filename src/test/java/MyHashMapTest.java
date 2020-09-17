@@ -1,38 +1,44 @@
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 class MyHashMapTest {
-    MyHashMap myHashMap = new MyHashMap();
+    MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
+    List<Integer> listOfKeys = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         myHashMap.put(5, 3);
-        myHashMap.put(3, 4);
         myHashMap.put(3, 6);
         myHashMap.put(1, 8);
         myHashMap.put(4, 4);
         myHashMap.put(2, 4);
         myHashMap.put(null, 7);
+        Collections.addAll(listOfKeys, 5, 3, 1, 4, 2, null);
+
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getSize() {
-        Assert.assertNotNull(myHashMap.getSize());
-        Assert.assertTrue(myHashMap.getSize() >= 0);
-    }
-
-    @org.junit.jupiter.api.Test
-    void put() {
-        myHashMap.put(5, 3);
+        Assert.assertTrue(myHashMap.size() >= 0);
+        Assert.assertTrue(myHashMap.size() == 6);
         myHashMap.put(3, 4);
-        myHashMap.put(3, 6);
-        myHashMap.put(1, 8);
-        myHashMap.put(4, 4);
-        myHashMap.put(2, 4);
-        myHashMap.put(null, 7);
+        Assert.assertTrue(myHashMap.size() == 6);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void put() {
+        for (Integer key : listOfKeys) {
+            Assert.assertTrue(myHashMap.containsKey(key));
+        }
+    }
+
+    @Test
     void get() {
         myHashMap.get(null);
         myHashMap.get(0);
@@ -41,7 +47,7 @@ class MyHashMapTest {
         myHashMap.get(5);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void containsKey() {
         myHashMap.containsKey(5);
         myHashMap.containsKey(0);
@@ -49,4 +55,13 @@ class MyHashMapTest {
         myHashMap.containsKey(-25);
         myHashMap.containsKey(null);
     }
+
+    @Test
+    void remove() {
+        myHashMap.remove(null);
+        myHashMap.remove(5);
+        myHashMap.remove(-2);
+        myHashMap.remove(4);
+    }
+
 }
